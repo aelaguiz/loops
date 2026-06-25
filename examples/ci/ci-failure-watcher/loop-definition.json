@@ -1,0 +1,80 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/ci-failure-watcher",
+  "downloadedCompatibleBundlePath": ".cursor/loops/ci-failure-watcher/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "/loop 5m Start the \"CI Failure Watcher\" loop.\n\nGoal: latest CI run on this branch is green.\nMax iterations: 12.\nBetween iterations run: gh run list --branch $(git branch --show-current) --limit 1\nExit when: latest run conclusion is success.\n\nStep 1: Check CI status. If failed, read logs, fix root cause, verify locally, and push if needed.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop84748a644c796e5e1369af67",
+    "slug": "ci-failure-watcher",
+    "title": "CI Failure Watcher",
+    "description": "Poll CI on an interval, investigate failures when checks go red, and push fixes until green.",
+    "category": "CI",
+    "triggerType": "interval",
+    "triggerConfig": {
+      "interval": "5m"
+    },
+    "steps": [
+      {
+        "name": "Check CI status",
+        "prompt": "Check the latest CI run for the current branch using gh CLI.",
+        "shellCheck": "gh run list --branch $(git branch --show-current) --limit 1"
+      },
+      {
+        "name": "Investigate failure",
+        "prompt": "If CI failed, read logs, identify the root cause, and apply the smallest fix."
+      },
+      {
+        "name": "Verify locally",
+        "prompt": "Run the failing CI step locally before pushing again."
+      }
+    ],
+    "exitCondition": {
+      "type": "ci_green",
+      "command": "gh run list --branch $(git branch --show-current) --limit 1 --json conclusion -q '.[0].conclusion'",
+      "description": "Latest CI run conclusion is success",
+      "maxIterations": 12
+    },
+    "kickoffPrompt": "/loop 5m Start the \"CI Failure Watcher\" loop.\n\nGoal: latest CI run on this branch is green.\nMax iterations: 12.\nBetween iterations run: gh run list --branch $(git branch --show-current) --limit 1\nExit when: latest run conclusion is success.\n\nStep 1: Check CI status. If failed, read logs, fix root cause, verify locally, and push if needed.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".cursor/loops/ci-failure-watcher/watch.sh",
+          "content": "#!/usr/bin/env bash\nset -euo pipefail\nBRANCH=\"$(git branch --show-current)\"\ngh run list --branch \"$BRANCH\" --limit 1 --json conclusion,url -q '.[0]'\n"
+        },
+        {
+          "path": ".cursor/loops/ci-failure-watcher/README.md",
+          "content": "# CI Failure Watcher\n\nPoll CI every 5 minutes and fix failures until green.\n\nPair with: /loop 5m <kickoff prompt from loops!>\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "ci",
+      "github",
+      "devops"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 946,
+    "installs": 1157,
+    "views": 1897,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

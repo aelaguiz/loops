@@ -1,0 +1,77 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/reflexion-debug-loop",
+  "downloadedCompatibleBundlePath": ".cursor/loops/reflexion-debug-loop/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Reflexion Debug Loop\" loop.\n\nGoal: the failing test or repro passes\nMax iterations: 8\nBetween iterations run: npm test -- --testNamePattern=<failing-test>\nExit when: the repro test exits 0\n\nStep 1: Reproduce the bug. If it fails, append a reflection to .loops/reflexion.md before trying a new fix.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopc150d1be4e9073bf6cdaa302",
+    "slug": "reflexion-debug-loop",
+    "title": "Reflexion Debug Loop",
+    "description": "On each failed repro attempt, write a short reflection to disk, then retry with that memory — avoids repeating the same wrong fix.",
+    "category": "Debugging",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Reproduce bug",
+        "prompt": "Run the minimal repro steps or failing test. Capture exact error output.",
+        "shellCheck": "npm test -- --testNamePattern=<failing-test>"
+      },
+      {
+        "name": "Reflect on failure",
+        "prompt": "Append to .loops/reflexion.md: what you tried, what failed, and one hypothesis to avoid next pass."
+      },
+      {
+        "name": "Apply targeted fix",
+        "prompt": "Read reflexion.md. Apply a different fix than prior attempts. Prefer root cause over symptoms."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm test -- --testNamePattern=<failing-test>",
+      "description": "Previously failing test passes",
+      "maxIterations": 8
+    },
+    "kickoffPrompt": "Start the \"Reflexion Debug Loop\" loop.\n\nGoal: the failing test or repro passes\nMax iterations: 8\nBetween iterations run: npm test -- --testNamePattern=<failing-test>\nExit when: the repro test exits 0\n\nStep 1: Reproduce the bug. If it fails, append a reflection to .loops/reflexion.md before trying a new fix.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".loops/reflexion.md",
+          "content": "# Reflexion log\n\nEach failed attempt gets one short entry: what was tried, what failed, what to try differently.\n\n## Attempts\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "claude-code",
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "debugging",
+      "reflexion",
+      "memory"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 786,
+    "installs": 1202,
+    "views": 1390,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

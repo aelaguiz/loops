@@ -1,0 +1,7 @@
+interface:
+  display_name: "Loop Authoring"
+  short_description: "Create and refine agentic loops"
+  default_prompt: "Use $loop-authoring to create, refine, or audit an agentic loop with clear trigger, feedback signal, exit condition, hard stop, guardrails, memory, escalation, and Codex/Claude Code compatibility."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,67 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/a11y-audit-until-clean",
+  "downloadedCompatibleBundlePath": ".cursor/loops/a11y-audit-until-clean/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"A11y Audit Until Clean\" loop.\n\nGoal: zero serious accessibility violations on changed UI\nMax iterations: 8\nBetween iterations run: npm run test:a11y\nExit when: a11y audit exits 0\n\nStep 1: Run the a11y audit on changed routes. Fix each violation, prioritizing keyboard and screen reader issues.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopef7ca103e676c748309689a7",
+    "slug": "a11y-audit-until-clean",
+    "title": "A11y Audit Until Clean",
+    "description": "Run automated accessibility checks on changed routes, fix violations, and repeat until the audit is clean.",
+    "category": "Quality",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run a11y audit",
+        "prompt": "Run axe, pa11y, or eslint-plugin-jsx-a11y on changed pages. List violations with selectors.",
+        "shellCheck": "npm run test:a11y"
+      },
+      {
+        "name": "Fix violations",
+        "prompt": "Fix labels, contrast, focus order, and ARIA roles. Prefer semantic HTML over aria hacks."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm run test:a11y",
+      "description": "Accessibility audit reports zero violations",
+      "maxIterations": 8
+    },
+    "kickoffPrompt": "Start the \"A11y Audit Until Clean\" loop.\n\nGoal: zero serious accessibility violations on changed UI\nMax iterations: 8\nBetween iterations run: npm run test:a11y\nExit when: a11y audit exits 0\n\nStep 1: Run the a11y audit on changed routes. Fix each violation, prioritizing keyboard and screen reader issues.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "a11y",
+      "quality",
+      "frontend"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 1005,
+    "installs": 1507,
+    "views": 1864,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

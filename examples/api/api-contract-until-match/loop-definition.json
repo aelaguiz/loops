@@ -1,0 +1,67 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/api-contract-until-match",
+  "downloadedCompatibleBundlePath": ".cursor/loops/api-contract-until-match/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"API Contract Until Match\" loop.\n\nGoal: API implementation matches the published contract\nMax iterations: 10\nBetween iterations run: npm run test:contract\nExit when: contract test suite exits 0\n\nStep 1: Run contract tests. Fix each schema/response mismatch with minimal diffs, then re-run.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopf3df89fe4eb775d6c2d9013b",
+    "slug": "api-contract-until-match",
+    "title": "API Contract Until Match",
+    "description": "Loop until API responses match the OpenAPI or JSON Schema contract — catch drift between docs and implementation.",
+    "category": "API",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run contract tests",
+        "prompt": "Run contract tests against openapi.yaml or schema fixtures. List every mismatch with endpoint and field.",
+        "shellCheck": "npm run test:contract"
+      },
+      {
+        "name": "Fix implementation or spec",
+        "prompt": "Fix the smallest change: update handler types/validation or correct the spec if the code is canonical."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm run test:contract",
+      "description": "All API contract tests pass",
+      "maxIterations": 10
+    },
+    "kickoffPrompt": "Start the \"API Contract Until Match\" loop.\n\nGoal: API implementation matches the published contract\nMax iterations: 10\nBetween iterations run: npm run test:contract\nExit when: contract test suite exits 0\n\nStep 1: Run contract tests. Fix each schema/response mismatch with minimal diffs, then re-run.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "api",
+      "openapi",
+      "contract-testing"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 545,
+    "installs": 1555,
+    "views": 1782,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

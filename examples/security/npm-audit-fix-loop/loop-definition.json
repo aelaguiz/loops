@@ -1,0 +1,68 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/npm-audit-fix-loop",
+  "downloadedCompatibleBundlePath": ".cursor/loops/npm-audit-fix-loop/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"npm Audit Fix Loop\" loop.\n\nGoal: no high or critical npm audit vulnerabilities\nMax iterations: 10\nBetween iterations run: npm audit --audit-level=high && npm test\nExit when: npm audit reports no high/critical issues\n\nStep 1: Pick one high/critical advisory, apply the safest fix, run tests, and repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop076a81a11e9960900bfb24a0",
+    "slug": "npm-audit-fix-loop",
+    "title": "npm Audit Fix Loop",
+    "description": "Fix high/critical npm audit findings one at a time with test verification — not a blind npm audit fix --force.",
+    "category": "Security",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "List vulnerabilities",
+        "prompt": "Run npm audit --json. Pick the highest severity fixable issue (one at a time).",
+        "shellCheck": "npm audit --audit-level=high"
+      },
+      {
+        "name": "Apply safe fix",
+        "prompt": "Use npm audit fix for that advisory or bump the direct dependency. Avoid --force unless unavoidable.",
+        "shellCheck": "npm test"
+      }
+    ],
+    "exitCondition": {
+      "type": "lint_clean",
+      "command": "npm audit --audit-level=high",
+      "description": "No high or critical npm audit vulnerabilities remain",
+      "maxIterations": 10
+    },
+    "kickoffPrompt": "Start the \"npm Audit Fix Loop\" loop.\n\nGoal: no high or critical npm audit vulnerabilities\nMax iterations: 10\nBetween iterations run: npm audit --audit-level=high && npm test\nExit when: npm audit reports no high/critical issues\n\nStep 1: Pick one high/critical advisory, apply the safest fix, run tests, and repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "security",
+      "npm",
+      "audit"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 1046,
+    "installs": 1831,
+    "views": 1809,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

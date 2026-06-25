@@ -1,0 +1,72 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/de-sloppify-pass",
+  "downloadedCompatibleBundlePath": ".cursor/loops/de-sloppify-pass/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"De-Sloppify Pass\" loop.\n\nGoal: recent changes are clean, minimal, and convention-aligned\nMax iterations: 4\nBetween iterations run: npm run lint && npm test\nExit when: review finds no slop and checks pass\n\nStep 1: Review the diff for debug code, dead branches, and naming issues. Fix them with minimal diffs.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopaef3ed41d21531195adfc840",
+    "slug": "de-sloppify-pass",
+    "title": "De-Sloppify Pass",
+    "description": "After implementation, run a cleanup pass: remove debug code, tighten naming, delete dead branches, and align with project conventions.",
+    "category": "Review",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Scan for slop",
+        "prompt": "Review recent changes for debug logs, commented code, TODO hacks, oversized functions, and inconsistent naming."
+      },
+      {
+        "name": "Clean up",
+        "prompt": "Apply minimal fixes: delete dead code, extract helpers, align types, and match surrounding style."
+      },
+      {
+        "name": "Verify",
+        "prompt": "Run lint and tests to ensure cleanup did not break behavior.",
+        "shellCheck": "npm run lint && npm test"
+      }
+    ],
+    "exitCondition": {
+      "type": "lint_clean",
+      "command": "npm run lint && npm test",
+      "description": "No slop remains and lint/tests still pass",
+      "maxIterations": 4
+    },
+    "kickoffPrompt": "Start the \"De-Sloppify Pass\" loop.\n\nGoal: recent changes are clean, minimal, and convention-aligned\nMax iterations: 4\nBetween iterations run: npm run lint && npm test\nExit when: review finds no slop and checks pass\n\nStep 1: Review the diff for debug code, dead branches, and naming issues. Fix them with minimal diffs.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "claude-code",
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "review",
+      "quality",
+      "cleanup"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 591,
+    "installs": 1831,
+    "views": 2055,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

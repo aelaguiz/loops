@@ -1,0 +1,66 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/bundle-size-budget",
+  "downloadedCompatibleBundlePath": ".cursor/loops/bundle-size-budget/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Bundle Size Budget\" loop.\n\nGoal: client bundle stays under the size-limit budget\nMax iterations: 6\nBetween iterations run: npm run build && npm run size-limit\nExit when: size-limit exits 0\n\nStep 1: Build and measure bundle size. If over budget, lazy-load or trim deps until size-limit passes.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop395ff76bbc7ef1fbe9afdb05",
+    "slug": "bundle-size-budget",
+    "title": "Bundle Size Budget",
+    "description": "Ship features without bloating the client bundle — loop until size checks pass under your budget threshold.",
+    "category": "Performance",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Measure bundle",
+        "prompt": "Run the production build and bundle size check. Report total KB and the largest new chunks.",
+        "shellCheck": "npm run build && npm run size-limit"
+      },
+      {
+        "name": "Trim or lazy-load",
+        "prompt": "If over budget: dynamic-import heavy modules, remove unused deps, or split routes. No feature cuts unless necessary."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm run size-limit",
+      "description": "Bundle size is under the configured budget",
+      "maxIterations": 6
+    },
+    "kickoffPrompt": "Start the \"Bundle Size Budget\" loop.\n\nGoal: client bundle stays under the size-limit budget\nMax iterations: 6\nBetween iterations run: npm run build && npm run size-limit\nExit when: size-limit exits 0\n\nStep 1: Build and measure bundle size. If over budget, lazy-load or trim deps until size-limit passes.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "performance",
+      "bundle",
+      "frontend"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 815,
+    "installs": 1418,
+    "views": 1748,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

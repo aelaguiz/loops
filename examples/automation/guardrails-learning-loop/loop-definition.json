@@ -1,0 +1,81 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/guardrails-learning-loop",
+  "downloadedCompatibleBundlePath": ".cursor/loops/guardrails-learning-loop/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Guardrails Learning Loop\" loop.\n\nGoal: tests and lint pass without repeating prior failure patterns\nMax iterations: 12\nBetween iterations run: npm test && npm run lint\nExit when: all checks pass\n\nStep 1: Read .ralph/guardrails.md, run checks, and if a failure repeats, add a sign before fixing.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop9095db38eb174a63c82224f1",
+    "slug": "guardrails-learning-loop",
+    "title": "Guardrails Learning Loop",
+    "description": "When a check fails twice the same way, append a guardrail sign to .ralph/guardrails.md so the next iteration avoids repeating it.",
+    "category": "Automation",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Read guardrails",
+        "prompt": "Read .ralph/guardrails.md before any work. Treat each sign as a hard constraint."
+      },
+      {
+        "name": "Run checks",
+        "prompt": "Run the project's backpressure commands.",
+        "shellCheck": "npm test && npm run lint"
+      },
+      {
+        "name": "Record failure sign",
+        "prompt": "If the same error occurred before, append a concise sign to guardrails.md: what failed and how to avoid it."
+      },
+      {
+        "name": "Fix with guardrails",
+        "prompt": "Apply a fix that respects all guardrail signs. Do not repeat prior failed approaches."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm test && npm run lint",
+      "description": "Checks pass and no repeated failure pattern remains",
+      "maxIterations": 12
+    },
+    "kickoffPrompt": "Start the \"Guardrails Learning Loop\" loop.\n\nGoal: tests and lint pass without repeating prior failure patterns\nMax iterations: 12\nBetween iterations run: npm test && npm run lint\nExit when: all checks pass\n\nStep 1: Read .ralph/guardrails.md, run checks, and if a failure repeats, add a sign before fixing.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".ralph/guardrails.md",
+          "content": "# Guardrails\n\nSigns from repeated failures. Read before every iteration.\n\n## Signs\n- Never commit without running tests first.\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "codex"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "ralph",
+      "guardrails",
+      "learning"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 1074,
+    "installs": 1706,
+    "views": 2303,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

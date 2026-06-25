@@ -1,0 +1,12 @@
+{
+  "stories": [
+    {
+      "id": "story-1",
+      "title": "Example user story",
+      "description": "Replace with your first atomic task",
+      "priority": 1,
+      "passes": false,
+      "inProgress": false
+    }
+  ]
+}

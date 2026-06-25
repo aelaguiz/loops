@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "type": "prompt",
+        "prompt": "Post-Edit Test Guard: run related tests for the files just edited. If tests fail, fix them before continuing other work."
+      }
+    ]
+  }
+}

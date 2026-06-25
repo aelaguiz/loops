@@ -1,0 +1,74 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/format-until-clean",
+  "downloadedCompatibleBundlePath": ".cursor/loops/format-until-clean/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Start the \"Format Until Clean\" loop.\n\nGoal: formatter runs cleanly with no remaining diff\nMax iterations: 5\nBetween iterations run: npm run format\nExit when: format command succeeds and git diff is empty\n\nStep 1: Run the formatter. Fix any issues it cannot auto-fix, then repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loop5d63c88fe56b0858dd4ac971",
+    "slug": "format-until-clean",
+    "title": "Format Until Clean",
+    "description": "Run the formatter, fix any remaining style issues, and loop until the codebase formats cleanly with no diffs.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run formatter",
+        "prompt": "Run the project formatter (prettier, biome, etc.).",
+        "shellCheck": "npm run format"
+      },
+      {
+        "name": "Check diff",
+        "prompt": "If formatting changed files, review diff for unintended edits. Fix manual style issues formatter missed."
+      },
+      {
+        "name": "Confirm clean",
+        "prompt": "Re-run formatter and confirm working tree is stable.",
+        "shellCheck": "npm run format && git diff --quiet"
+      }
+    ],
+    "exitCondition": {
+      "type": "lint_clean",
+      "command": "npm run format && git diff --quiet",
+      "description": "Formatter produces no remaining diff",
+      "maxIterations": 5
+    },
+    "kickoffPrompt": "Start the \"Format Until Clean\" loop.\n\nGoal: formatter runs cleanly with no remaining diff\nMax iterations: 5\nBetween iterations run: npm run format\nExit when: format command succeeds and git diff is empty\n\nStep 1: Run the formatter. Fix any issues it cannot auto-fix, then repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "format",
+      "prettier",
+      "quality"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 469,
+    "installs": 1707,
+    "views": 1727,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

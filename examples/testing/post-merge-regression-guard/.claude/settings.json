@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Post-Merge Regression Guard: if a merge or rebase just happened, run npm run test:smoke and fix failures."
+          }
+        ]
+      }
+    ]
+  }
+}

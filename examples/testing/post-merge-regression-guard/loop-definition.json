@@ -1,0 +1,82 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/post-merge-regression-guard",
+  "downloadedCompatibleBundlePath": ".cursor/loops/post-merge-regression-guard/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Install and run the \"Post-Merge Regression Guard\" loop.\n\nGoal: smoke tests pass immediately after every merge or rebase.\nBetween iterations run: npm run test:smoke\nExit when: smoke suite exits 0.\n\nStep 1: After a merge, run smoke tests. Fix regressions before continuing other work.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loopc06d8493cf30f00161d28b79",
+    "slug": "post-merge-regression-guard",
+    "title": "Post-Merge Regression Guard",
+    "description": "Hook that runs smoke tests after git merge or rebase to catch integration regressions immediately.",
+    "category": "Testing",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "git_merge"
+    },
+    "steps": [
+      {
+        "name": "Detect merge",
+        "prompt": "Confirm a merge or rebase just completed. Identify affected areas from the diff stat."
+      },
+      {
+        "name": "Run smoke suite",
+        "prompt": "Run the fast smoke test suite. Fix any failures before starting new feature work.",
+        "shellCheck": "npm run test:smoke"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm run test:smoke",
+      "description": "Smoke tests pass after merge"
+    },
+    "kickoffPrompt": "Install and run the \"Post-Merge Regression Guard\" loop.\n\nGoal: smoke tests pass immediately after every merge or rebase.\nBetween iterations run: npm run test:smoke\nExit when: smoke suite exits 0.\n\nStep 1: After a merge, run smoke tests. Fix regressions before continuing other work.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".cursor/hooks.json",
+          "content": "{\n  \"version\": 1,\n  \"hooks\": {\n    \"stop\": [\n      {\n        \"type\": \"prompt\",\n        \"prompt\": \"Post-Merge Regression Guard: if the last git operation was a merge or rebase, run npm run test:smoke and fix failures before stopping.\"\n      }\n    ]\n  }\n}"
+        },
+        {
+          "path": ".claude/settings.json",
+          "content": "{\n  \"hooks\": {\n    \"Stop\": [\n      {\n        \"hooks\": [\n          {\n            \"type\": \"prompt\",\n            \"prompt\": \"Post-Merge Regression Guard: if a merge or rebase just happened, run npm run test:smoke and fix failures.\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+        },
+        {
+          "path": ".cursor/loops/post-merge-regression-guard/README.md",
+          "content": "# Post-Merge Regression Guard\n\nRuns smoke tests after merge/rebase operations via stop hooks.\n\nPair with the kickoff prompt from loops! for agent behavior."
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "hooks",
+      "testing",
+      "git",
+      "merge"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 981,
+    "installs": 1610,
+    "views": 1690,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

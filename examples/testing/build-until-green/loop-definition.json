@@ -1,0 +1,75 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/build-until-green",
+  "downloadedCompatibleBundlePath": ".cursor/loops/build-until-green/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Start the \"Build Until Green\" loop.\n\nGoal: production build succeeds\nMax iterations: 10\nBetween iterations run: npm run build\nExit when: npm run build exits 0\n\nStep 1: Run the build. If it fails, fix the first error, then repeat until green.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loop098d4a0012fd4e9611c0a95e",
+    "slug": "build-until-green",
+    "title": "Build Until Green",
+    "description": "Run the production build, fix compile and bundling errors, and loop until the build succeeds.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run build",
+        "prompt": "Run the project build command and capture all errors.",
+        "shellCheck": "npm run build"
+      },
+      {
+        "name": "Fix build errors",
+        "prompt": "Fix compile, type, and bundling errors one at a time. Prefer minimal diffs."
+      },
+      {
+        "name": "Re-run build",
+        "prompt": "Run the build again and confirm errors are resolved.",
+        "shellCheck": "npm run build"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm run build",
+      "description": "Production build completes with exit code 0",
+      "maxIterations": 10
+    },
+    "kickoffPrompt": "Start the \"Build Until Green\" loop.\n\nGoal: production build succeeds\nMax iterations: 10\nBetween iterations run: npm run build\nExit when: npm run build exits 0\n\nStep 1: Run the build. If it fails, fix the first error, then repeat until green.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "build",
+      "compile",
+      "ci"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 444,
+    "installs": 1925,
+    "views": 1948,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

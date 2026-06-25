@@ -1,0 +1,70 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/changelog-sync-after-ship",
+  "downloadedCompatibleBundlePath": ".cursor/loops/changelog-sync-after-ship/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Changelog Sync After Ship\" loop.\n\nGoal: CHANGELOG.md has accurate [Unreleased] entries for this ship\nMax iterations: 3\nBetween iterations run: git log -5 --oneline\nExit when: changelog covers all user-visible changes\n\nStep 1: Review recent commits, write Keep-a-Changelog entries for user-visible changes, and verify completeness.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopcd7eed0c7eafc5bc0c2a1e77",
+    "slug": "changelog-sync-after-ship",
+    "title": "Changelog Sync After Ship",
+    "description": "After shipping a feature, loop until CHANGELOG.md has a user-facing entry and conventional commits are reflected.",
+    "category": "Docs",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Diff since last tag",
+        "prompt": "List commits and user-visible changes since the last release tag or CHANGELOG section.",
+        "shellCheck": "git log $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~20)..HEAD --oneline"
+      },
+      {
+        "name": "Write changelog entry",
+        "prompt": "Add a Keep-a-Changelog entry under [Unreleased]: Added, Changed, Fixed. User-facing language only."
+      },
+      {
+        "name": "Verify format",
+        "prompt": "Confirm CHANGELOG follows project format and links issues/PRs where relevant."
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "CHANGELOG.md documents all user-visible changes in this ship",
+      "maxIterations": 3
+    },
+    "kickoffPrompt": "Start the \"Changelog Sync After Ship\" loop.\n\nGoal: CHANGELOG.md has accurate [Unreleased] entries for this ship\nMax iterations: 3\nBetween iterations run: git log -5 --oneline\nExit when: changelog covers all user-visible changes\n\nStep 1: Review recent commits, write Keep-a-Changelog entries for user-visible changes, and verify completeness.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "docs",
+      "changelog",
+      "release"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 687,
+    "installs": 1601,
+    "views": 1428,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

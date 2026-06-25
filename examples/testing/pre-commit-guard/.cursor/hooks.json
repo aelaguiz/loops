@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "type": "prompt",
+        "matcher": "git commit",
+        "prompt": "Pre-Commit Guard: run npm test before committing. If tests fail, fix them and do not commit until the suite is green."
+      }
+    ]
+  }
+}

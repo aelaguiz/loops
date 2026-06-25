@@ -1,0 +1,73 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/independent-verifier-pass",
+  "downloadedCompatibleBundlePath": ".cursor/loops/independent-verifier-pass/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Start the \"Independent Verifier Pass\" loop.\n\nGoal: build, lint, and tests pass under independent verification\nMax iterations: 8\nBetween iterations run: npm run build && npm run lint && npm test\nExit when: all verifier commands exit 0\n\nStep 1: Run build, lint, and tests as a verifier. Trust only command output, not prior claims.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loop58be2dfa04b8733efeefbe68",
+    "slug": "independent-verifier-pass",
+    "title": "Independent Verifier Pass",
+    "description": "When implementation claims done, a separate verifier pass runs build, lint, and tests with no access to the implementer's rationale.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run verifier checks",
+        "prompt": "As an independent verifier, run build, lint, and tests. Do not assume the prior pass was correct.",
+        "shellCheck": "npm run build && npm run lint && npm test"
+      },
+      {
+        "name": "Report gaps",
+        "prompt": "List every failing check with file paths and error excerpts. No self-reporting — only command output counts."
+      },
+      {
+        "name": "Fix or hand back",
+        "prompt": "If failures exist, fix them or produce a concise failure report for the implementer to continue."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm run build && npm run lint && npm test",
+      "description": "Build, lint, and tests all pass under independent verification",
+      "maxIterations": 8
+    },
+    "kickoffPrompt": "Start the \"Independent Verifier Pass\" loop.\n\nGoal: build, lint, and tests pass under independent verification\nMax iterations: 8\nBetween iterations run: npm run build && npm run lint && npm test\nExit when: all verifier commands exit 0\n\nStep 1: Run build, lint, and tests as a verifier. Trust only command output, not prior claims.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "claude-code",
+      "cursor"
+    ],
+    "bestForAgents": [
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "verification",
+      "testing",
+      "letitloop"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 994,
+    "installs": 1729,
+    "views": 1347,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

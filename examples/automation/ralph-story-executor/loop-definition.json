@@ -1,0 +1,94 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/ralph-story-executor",
+  "downloadedCompatibleBundlePath": ".cursor/loops/ralph-story-executor/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Ralph Story Executor\" loop.\n\nGoal: every story in .ralph/prd.json has passes: true\nMax iterations: 20\nBetween iterations run: npm test && npm run lint && npm run build\nExit when: no stories remain with passes: false (respond \"ALL STORIES ARE COMPLETE\")\n\nStep 1: Read .ralph/prd.json and .ralph/progress.md. Pick one incomplete story, implement it, run backpressure checks, commit, update prd.json and progress.md, then stop this iteration.\n\nSelf-pace this loop. Each iteration does exactly one story. State lives on disk, not in chat history.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop266c6737d0f0adb9a7e694a9",
+    "slug": "ralph-story-executor",
+    "title": "Ralph Story Executor",
+    "description": "Fresh-context loop: pick one incomplete story from prd.json, implement it, run backpressure checks, commit, and update progress before the next iteration.",
+    "category": "Automation",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Read state",
+        "prompt": "Read .ralph/prd.json and .ralph/progress.md. Resume any story marked inProgress, else pick the lowest-priority story with passes: false."
+      },
+      {
+        "name": "Implement one story",
+        "prompt": "Implement exactly one user story with minimal scope. Mark it inProgress in prd.json before coding."
+      },
+      {
+        "name": "Run backpressure",
+        "prompt": "Run the project's test, lint, and build commands from AGENTS.md. Fix failures before committing.",
+        "shellCheck": "npm test && npm run lint && npm run build"
+      },
+      {
+        "name": "Commit and record",
+        "prompt": "Commit with a story-scoped message. Set passes: true in prd.json and append learnings to progress.md."
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "command": "cat .ralph/prd.json | grep -c '\"passes\": false' || true",
+      "description": "All stories in prd.json have passes: true",
+      "maxIterations": 20
+    },
+    "kickoffPrompt": "Start the \"Ralph Story Executor\" loop.\n\nGoal: every story in .ralph/prd.json has passes: true\nMax iterations: 20\nBetween iterations run: npm test && npm run lint && npm run build\nExit when: no stories remain with passes: false (respond \"ALL STORIES ARE COMPLETE\")\n\nStep 1: Read .ralph/prd.json and .ralph/progress.md. Pick one incomplete story, implement it, run backpressure checks, commit, update prd.json and progress.md, then stop this iteration.\n\nSelf-pace this loop. Each iteration does exactly one story. State lives on disk, not in chat history.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".ralph/prd.json",
+          "content": "{\n  \"stories\": [\n    {\n      \"id\": \"story-1\",\n      \"title\": \"Example user story\",\n      \"description\": \"Replace with your first atomic task\",\n      \"priority\": 1,\n      \"passes\": false,\n      \"inProgress\": false\n    }\n  ]\n}\n"
+        },
+        {
+          "path": ".ralph/progress.md",
+          "content": "# Ralph progress\n\nAppend one short learning per iteration. The next fresh context reads this file first.\n\n## Iteration log\n"
+        },
+        {
+          "path": ".ralph/guardrails.md",
+          "content": "# Guardrails\n\nSigns learned from failures. The agent must read this before each story.\n\n- Run tests before every commit.\n- One story per iteration — no scope creep.\n"
+        },
+        {
+          "path": ".cursor/loops/ralph-story-executor/README.md",
+          "content": "# Ralph Story Executor\n\nFilesystem-backed Ralph loop. Each /ralph-loop or kickoff iteration implements one story.\n\n## Files\n- `.ralph/prd.json` — task list with passes/inProgress flags\n- `.ralph/progress.md` — iteration learnings\n- `.ralph/guardrails.md` — failure signs\n\nInspired by Geoffrey Huntley's Ralph pattern and fresh-context agent loops.\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "codex"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "ralph",
+      "automation",
+      "prd",
+      "fresh-context"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 701,
+    "installs": 1589,
+    "views": 1388,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

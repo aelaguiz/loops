@@ -1,0 +1,70 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/visual-regression-until-match",
+  "downloadedCompatibleBundlePath": ".cursor/loops/visual-regression-until-match/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Start the \"Visual Regression Until Match\" loop.\n\nGoal: visual regression suite passes with intentional UI only\nMax iterations: 6\nBetween iterations run: npx playwright test --grep @visual\nExit when: visual tests exit 0\n\nStep 1: Run visual tests. Fix unintended UI diffs; update baselines only for deliberate design changes.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loop316f5755b751fcc2ab9412ea",
+    "slug": "visual-regression-until-match",
+    "title": "Visual Regression Until Match",
+    "description": "Run Playwright or Percy visual snapshots on UI changes; fix unintended diffs until baselines match intentionally.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run visual tests",
+        "prompt": "Run visual regression tests. List screenshots that differ from baseline with component names.",
+        "shellCheck": "npx playwright test --grep @visual"
+      },
+      {
+        "name": "Fix or approve",
+        "prompt": "If diffs are bugs, fix CSS/markup. If intentional, update snapshots only after verifying in report."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npx playwright test --grep @visual",
+      "description": "Visual regression tests pass with approved baselines",
+      "maxIterations": 6
+    },
+    "kickoffPrompt": "Start the \"Visual Regression Until Match\" loop.\n\nGoal: visual regression suite passes with intentional UI only\nMax iterations: 6\nBetween iterations run: npx playwright test --grep @visual\nExit when: visual tests exit 0\n\nStep 1: Run visual tests. Fix unintended UI diffs; update baselines only for deliberate design changes.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "testing",
+      "visual",
+      "playwright",
+      "ui"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 375,
+    "installs": 1217,
+    "views": 1347,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

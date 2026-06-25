@@ -1,0 +1,86 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/pre-commit-guard",
+  "downloadedCompatibleBundlePath": ".cursor/loops/pre-commit-guard/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Install and run the \"Pre-Commit Guard\" loop.\n\nGoal: block git commits when tests are failing.\nBetween iterations run: npm test\nExit when: tests exit 0 before each commit.\n\nStep 1: Before any git commit, run tests. Fix failures before committing.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loopcaef0013d595ed6afe7ffda5",
+    "slug": "pre-commit-guard",
+    "title": "Pre-Commit Guard",
+    "description": "Hook that runs tests before git commit commands to block commits when the suite is red.",
+    "category": "Testing",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "file_edit"
+    },
+    "steps": [
+      {
+        "name": "Detect commit intent",
+        "prompt": "When a git commit command is about to run, pause and run the test suite first."
+      },
+      {
+        "name": "Run tests",
+        "prompt": "Run the full test suite before allowing the commit to proceed.",
+        "shellCheck": "npm test"
+      },
+      {
+        "name": "Block or allow",
+        "prompt": "If tests fail, fix failures and re-run. Only allow the commit when tests pass."
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm test",
+      "description": "Tests pass before each git commit"
+    },
+    "kickoffPrompt": "Install and run the \"Pre-Commit Guard\" loop.\n\nGoal: block git commits when tests are failing.\nBetween iterations run: npm test\nExit when: tests exit 0 before each commit.\n\nStep 1: Before any git commit, run tests. Fix failures before committing.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".cursor/hooks.json",
+          "content": "{\n  \"version\": 1,\n  \"hooks\": {\n    \"beforeShellExecution\": [\n      {\n        \"type\": \"prompt\",\n        \"matcher\": \"git commit\",\n        \"prompt\": \"Pre-Commit Guard: run npm test before committing. If tests fail, fix them and do not commit until the suite is green.\"\n      }\n    ]\n  }\n}"
+        },
+        {
+          "path": ".claude/settings.json",
+          "content": "{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          {\n            \"type\": \"prompt\",\n            \"prompt\": \"Pre-Commit Guard: if this is a git commit, run npm test first. Block the commit if tests fail.\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+        },
+        {
+          "path": ".cursor/loops/pre-commit-guard/README.md",
+          "content": "# Pre-Commit Guard\n\nUses `beforeShellExecution` (Cursor) and `PreToolUse` (Claude Code) to run tests before git commits.\n\n## Pair with\nCopy the kickoff prompt from loops! to align agent behavior with the hook.\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "hooks",
+      "testing",
+      "git",
+      "pre-commit"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 1138,
+    "installs": 1932,
+    "views": 2016,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/fix-ci-until-green",
+  "downloadedCompatibleBundlePath": ".cursor/loops/fix-ci-until-green/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Fix CI Until Green\" loop.\n\nGoal: latest CI run on this branch passes\nMax iterations: 8\nBetween iterations run: gh run list --branch $(git branch --show-current) --limit 1 --json conclusion -q '.[0].conclusion'\nExit when: latest run conclusion is success\n\nStep 1: Find the latest failed CI run, read logs, reproduce locally, fix root cause, push, and verify.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loope8c4bc1b0b93331e9f420f48",
+    "slug": "fix-ci-until-green",
+    "title": "Fix CI Until Green",
+    "description": "Fetch the latest failed CI run, reproduce the failure locally, fix it, and repeat until checks pass.",
+    "category": "CI",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Fetch failed run",
+        "prompt": "Use gh to find the latest failed CI run on this branch. Pull logs for the failing job.",
+        "shellCheck": "gh run list --branch $(git branch --show-current) --status failure --limit 1"
+      },
+      {
+        "name": "Reproduce locally",
+        "prompt": "Run the failing CI step locally (test, lint, build). Confirm you can reproduce the error."
+      },
+      {
+        "name": "Apply fix",
+        "prompt": "Fix the root cause with a minimal diff. Avoid unrelated refactors."
+      },
+      {
+        "name": "Push and verify",
+        "prompt": "Push the fix and wait for CI. Re-check status before the next iteration.",
+        "shellCheck": "gh run list --branch $(git branch --show-current) --limit 1 --json conclusion -q '.[0].conclusion'"
+      }
+    ],
+    "exitCondition": {
+      "type": "ci_green",
+      "command": "gh run list --branch $(git branch --show-current) --limit 1 --json conclusion -q '.[0].conclusion'",
+      "description": "Latest CI run conclusion is success",
+      "maxIterations": 8
+    },
+    "kickoffPrompt": "Start the \"Fix CI Until Green\" loop.\n\nGoal: latest CI run on this branch passes\nMax iterations: 8\nBetween iterations run: gh run list --branch $(git branch --show-current) --limit 1 --json conclusion -q '.[0].conclusion'\nExit when: latest run conclusion is success\n\nStep 1: Find the latest failed CI run, read logs, reproduce locally, fix root cause, push, and verify.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "ci",
+      "github",
+      "fix"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 512,
+    "installs": 1425,
+    "views": 2075,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

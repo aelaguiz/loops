@@ -1,0 +1,79 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/autoloop-tdd",
+  "downloadedCompatibleBundlePath": ".cursor/loops/autoloop-tdd/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Start the \"Autoloop TDD\" loop.\n\nGoal: implement the target behavior test-first with a green suite\nMax iterations: 12\nBetween iterations run: npm test\nExit when: target behavior is covered and all tests pass\n\nStep 1: Write a failing test for the next behavior, implement the minimum code to pass, refactor, and repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loop1592ca257a787a4a4b7e27c5",
+    "slug": "autoloop-tdd",
+    "title": "Autoloop TDD",
+    "description": "Test-first loop: write a failing test, implement the minimum code to pass, refactor, and repeat.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Write failing test",
+        "prompt": "Write a focused test for the next behavior. Run it and confirm it fails for the right reason.",
+        "shellCheck": "npm test -- --testPathPattern=<new-test>"
+      },
+      {
+        "name": "Implement minimum code",
+        "prompt": "Write the smallest implementation that makes the new test pass. No extra features."
+      },
+      {
+        "name": "Verify green",
+        "prompt": "Run the new test and full suite to confirm everything passes.",
+        "shellCheck": "npm test"
+      },
+      {
+        "name": "Refactor",
+        "prompt": "Clean up duplication and naming while keeping tests green. Run tests after each refactor.",
+        "shellCheck": "npm test"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm test",
+      "description": "Target behavior covered by tests and full suite passes",
+      "maxIterations": 12
+    },
+    "kickoffPrompt": "Start the \"Autoloop TDD\" loop.\n\nGoal: implement the target behavior test-first with a green suite\nMax iterations: 12\nBetween iterations run: npm test\nExit when: target behavior is covered and all tests pass\n\nStep 1: Write a failing test for the next behavior, implement the minimum code to pass, refactor, and repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "tdd",
+      "testing",
+      "red-green-refactor"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 677,
+    "installs": 1558,
+    "views": 1612,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/knip-until-clean",
+  "downloadedCompatibleBundlePath": ".cursor/loops/knip-until-clean/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Knip Until Clean\" loop.\n\nGoal: knip reports no unused code or dependencies\nMax iterations: 5\nBetween iterations run: npx knip\nExit when: knip exits 0\n\nStep 1: Run knip. Remove dead exports and unused deps with minimal diffs; verify tests still pass.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopcd16f07d135f480358ff09b7",
+    "slug": "knip-until-clean",
+    "title": "Knip Until Clean",
+    "description": "Find and remove dead exports, unused files, and orphan dependencies — loop until knip reports clean.",
+    "category": "Maintenance",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run knip",
+        "prompt": "Run knip (or depcheck) and categorize unused files, exports, and dependencies.",
+        "shellCheck": "npx knip"
+      },
+      {
+        "name": "Remove or justify",
+        "prompt": "Delete confirmed dead code. For false positives, add knip ignore entries with a one-line reason."
+      }
+    ],
+    "exitCondition": {
+      "type": "lint_clean",
+      "command": "npx knip",
+      "description": "Knip reports no unused files, exports, or dependencies",
+      "maxIterations": 5
+    },
+    "kickoffPrompt": "Start the \"Knip Until Clean\" loop.\n\nGoal: knip reports no unused code or dependencies\nMax iterations: 5\nBetween iterations run: npx knip\nExit when: knip exits 0\n\nStep 1: Run knip. Remove dead exports and unused deps with minimal diffs; verify tests still pass.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "maintenance",
+      "dead-code",
+      "deps"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 850,
+    "installs": 1484,
+    "views": 1469,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

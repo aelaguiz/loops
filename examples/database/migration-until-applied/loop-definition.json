@@ -1,0 +1,71 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/migration-until-applied",
+  "downloadedCompatibleBundlePath": ".cursor/loops/migration-until-applied/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Migration Until Applied\" loop.\n\nGoal: all database migrations apply cleanly\nMax iterations: 6\nBetween iterations run: npx prisma migrate status\nExit when: migrate status shows no pending failures\n\nStep 1: Run migrations. Fix schema or SQL errors, then repeat until status is clean.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopf48f7e6e8d6f71750a5493f7",
+    "slug": "migration-until-applied",
+    "title": "Migration Until Applied",
+    "description": "Run database migrations, fix schema issues, and loop until migrations apply cleanly in dev.",
+    "category": "Database",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run migrations",
+        "prompt": "Apply pending migrations with the project's migration command.",
+        "shellCheck": "npx prisma migrate dev"
+      },
+      {
+        "name": "Fix schema errors",
+        "prompt": "If migration fails, fix schema or SQL, regenerate client if needed, and retry."
+      },
+      {
+        "name": "Verify",
+        "prompt": "Confirm migration history is consistent and app still starts.",
+        "shellCheck": "npx prisma migrate status"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npx prisma migrate status",
+      "description": "All migrations applied with clean status",
+      "maxIterations": 6
+    },
+    "kickoffPrompt": "Start the \"Migration Until Applied\" loop.\n\nGoal: all database migrations apply cleanly\nMax iterations: 6\nBetween iterations run: npx prisma migrate status\nExit when: migrate status shows no pending failures\n\nStep 1: Run migrations. Fix schema or SQL errors, then repeat until status is clean.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "database",
+      "prisma",
+      "migrations"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 502,
+    "installs": 1653,
+    "views": 1681,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

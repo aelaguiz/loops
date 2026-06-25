@@ -1,0 +1,58 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/loop-kit-mql1vea1",
+  "downloadedCompatibleBundlePath": ".cursor/loops/loop-kit-mql1vea1/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "/plugin marketplace add yuzhiquan/loop-kit\r\n/plugin install loop-kit@loop-kit\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "cmql1vea4000104jp4xyes9rg",
+    "slug": "loop-kit-mql1vea1",
+    "title": "loop-kit",
+    "description": "Add an autonomous Loop Engineering triage loop to any repo.",
+    "category": "Review",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run loop",
+        "prompt": "/plugin marketplace add yuzhiquan/loop-kit\r\n/plugin install loop-kit@loop-kit"
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "Loop goal achieved"
+    },
+    "kickoffPrompt": "/plugin marketplace add yuzhiquan/loop-kit\r\n/plugin install loop-kit@loop-kit",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "claude-code"
+    ],
+    "author": "Heisenberg",
+    "authorSlug": "heisenberg",
+    "authorOfficial": false,
+    "source": "community",
+    "tags": [],
+    "guardrails": [
+      "Do not modify the check command or exit criteria to force success",
+      "Do not skip, disable, or bypass checks to pass the exit condition",
+      "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+    ],
+    "examples": [],
+    "copies": 4,
+    "installs": 3,
+    "views": 15,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 19, 2026"
+  }
+}

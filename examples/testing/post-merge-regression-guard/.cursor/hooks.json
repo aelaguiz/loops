@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "type": "prompt",
+        "prompt": "Post-Merge Regression Guard: if the last git operation was a merge or rebase, run npm run test:smoke and fix failures before stopping."
+      }
+    ]
+  }
+}

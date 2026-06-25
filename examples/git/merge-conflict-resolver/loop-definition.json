@@ -1,0 +1,72 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/merge-conflict-resolver",
+  "downloadedCompatibleBundlePath": ".cursor/loops/merge-conflict-resolver/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Merge Conflict Resolver\" loop.\n\nGoal: branch is rebased on main with no conflicts and tests pass\nMax iterations: 8\nBetween iterations run: npm test\nExit when: rebase completes and tests exit 0\n\nStep 1: Rebase on main. Resolve conflicts one file at a time, run tests, continue.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop7d8c57a2ea73e57bd05f0d24",
+    "slug": "merge-conflict-resolver",
+    "title": "Merge Conflict Resolver",
+    "description": "Rebase or merge target branch, resolve conflicts file by file, and loop until the branch is current and tests pass.",
+    "category": "Git",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Update branch",
+        "prompt": "Fetch latest main and attempt rebase or merge.",
+        "shellCheck": "git fetch origin && git rebase origin/main"
+      },
+      {
+        "name": "Resolve conflicts",
+        "prompt": "For each conflict, read both sides, preserve intent, and resolve with minimal changes."
+      },
+      {
+        "name": "Verify",
+        "prompt": "Run tests after each resolution batch.",
+        "shellCheck": "npm test"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "git rebase --continue 2>/dev/null; npm test",
+      "description": "Rebase complete with no conflicts and tests passing",
+      "maxIterations": 8
+    },
+    "kickoffPrompt": "Start the \"Merge Conflict Resolver\" loop.\n\nGoal: branch is rebased on main with no conflicts and tests pass\nMax iterations: 8\nBetween iterations run: npm test\nExit when: rebase completes and tests exit 0\n\nStep 1: Rebase on main. Resolve conflicts one file at a time, run tests, continue.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "git",
+      "rebase",
+      "merge"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 393,
+    "installs": 1587,
+    "views": 1583,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

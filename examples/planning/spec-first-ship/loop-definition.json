@@ -1,0 +1,77 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/spec-first-ship",
+  "downloadedCompatibleBundlePath": ".cursor/loops/spec-first-ship/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Spec-First Ship\" loop.\n\nGoal: every requirement in spec.md is implemented and checked off\nMax iterations: 15\nBetween iterations run: npm test\nExit when: spec.md has no unchecked requirements\n\nStep 1: Read spec.md, implement the first unchecked item, verify it, mark [x], and stop this iteration.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop81abbcdb97aa9338a6408da7",
+    "slug": "spec-first-ship",
+    "title": "Spec-First Ship",
+    "description": "Implement from a written spec.md checklist — each iteration completes one unchecked requirement with verification.",
+    "category": "Planning",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Read spec",
+        "prompt": "Read spec.md. Pick the first unchecked requirement. Do not start multiple requirements in one pass."
+      },
+      {
+        "name": "Implement requirement",
+        "prompt": "Implement that single requirement with tests. Mark it [x] in spec.md only after verification."
+      },
+      {
+        "name": "Verify",
+        "prompt": "Run tests and manual checks listed in the spec for this requirement.",
+        "shellCheck": "npm test"
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "Every requirement in spec.md is checked off",
+      "maxIterations": 15
+    },
+    "kickoffPrompt": "Start the \"Spec-First Ship\" loop.\n\nGoal: every requirement in spec.md is implemented and checked off\nMax iterations: 15\nBetween iterations run: npm test\nExit when: spec.md has no unchecked requirements\n\nStep 1: Read spec.md, implement the first unchecked item, verify it, mark [x], and stop this iteration.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": [
+        {
+          "path": "spec.md",
+          "content": "# Feature spec\n\nCheck off each item only after it is implemented and verified.\n\n## Requirements\n- [ ] Requirement 1 — describe acceptance criteria\n- [ ] Requirement 2 — describe acceptance criteria\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "codex",
+      "any"
+    ],
+    "bestForAgents": [
+      "claude-code",
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "planning",
+      "spec",
+      "requirements"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 484,
+    "installs": 1257,
+    "views": 2205,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

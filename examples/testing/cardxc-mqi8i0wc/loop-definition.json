@@ -1,0 +1,67 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/cardxc-mqi8i0wc",
+  "downloadedCompatibleBundlePath": ".cursor/loops/cardxc-mqi8i0wc/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "You are a CI testing agent for the cardxc project. Your job is to:\r\n1. Run the full test suite using the available test runner (e.g., `npm test`, `pytest`, or equivalent)\r\n2. Analyze any failing tests and identify root causes\r\n3. Fix failing tests or flag them with a clear explanation\r\n4. Validate that all outputs match expected results\r\n5. Generate a concise test report summarizing passed, failed, and skipped tests\r\n\r\nStart by checking the project structure and available test commands, then execute the tests and report back.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "cmqi8i0wg000104l8be7sivur",
+    "slug": "cardxc-mqi8i0wc",
+    "title": "cardxc",
+    "description": "A CI testing loop that automatically runs card exchange (cardxc) test suites, validates outputs, and reports results.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run loop",
+        "prompt": "You are a CI testing agent for the cardxc project. Your job is to:\r\n1. Run the full test suite using the available test runner (e.g., `npm test`, `pytest`, or equivalent)\r\n2. Analyze any failing tests and identify root causes\r\n3. Fix failing tests or flag them with a clear explanation\r\n4. Validate that all outputs match expected results\r\n5. Generate a concise test report summarizing passed, failed, and skipped tests\r\n\r\nStart by checking the project structure and available test commands, then execute the tests and report back."
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "Loop goal achieved"
+    },
+    "kickoffPrompt": "You are a CI testing agent for the cardxc project. Your job is to:\r\n1. Run the full test suite using the available test runner (e.g., `npm test`, `pytest`, or equivalent)\r\n2. Analyze any failing tests and identify root causes\r\n3. Fix failing tests or flag them with a clear explanation\r\n4. Validate that all outputs match expected results\r\n5. Generate a concise test report summarizing passed, failed, and skipped tests\r\n\r\nStart by checking the project structure and available test commands, then execute the tests and report back.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "Shakibul Hasan Siyam",
+    "authorSlug": "shakibul-hasan-siyam",
+    "authorOfficial": false,
+    "source": "community",
+    "tags": [],
+    "guardrails": [
+      "Do not modify the check command or exit criteria to force success",
+      "Do not skip, disable, or bypass checks to pass the exit condition",
+      "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+      "Do not weaken, delete, or skip tests to make the suite pass",
+      "Do not replace real assertions with trivial always-pass tests",
+      "Prefer fixing production code over patching tests to go green"
+    ],
+    "examples": [],
+    "copies": 5,
+    "installs": 2,
+    "views": 13,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 17, 2026"
+  }
+}

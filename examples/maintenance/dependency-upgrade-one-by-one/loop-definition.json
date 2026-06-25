@@ -1,0 +1,71 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/dependency-upgrade-one-by-one",
+  "downloadedCompatibleBundlePath": ".cursor/loops/dependency-upgrade-one-by-one/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"Dependency Upgrade One-by-One\" loop.\n\nGoal: critical outdated deps are upgraded with green tests\nMax iterations: 15\nBetween iterations run: npm outdated && npm test && npm run build\nExit when: npm outdated shows no critical packages left or user stops\n\nStep 1: Pick one outdated package, upgrade it, fix breakages, commit, and stop. One package per iteration.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop77eb957ad7f2ef1d5a9d80d3",
+    "slug": "dependency-upgrade-one-by-one",
+    "title": "Dependency Upgrade One-by-One",
+    "description": "Upgrade a single outdated package per iteration, fix breakages, and commit — safer than bulk npm update.",
+    "category": "Maintenance",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Pick one package",
+        "prompt": "Run npm outdated. Pick the highest-impact outdated package (one only). Note its current and target version.",
+        "shellCheck": "npm outdated"
+      },
+      {
+        "name": "Upgrade and fix",
+        "prompt": "Upgrade that single package. Fix type errors, API changes, and test failures caused by the bump.",
+        "shellCheck": "npm test && npm run build"
+      },
+      {
+        "name": "Commit bump",
+        "prompt": "Commit with message like chore(deps): bump <package> to <version>."
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "No outdated production dependencies remain (or user stops)",
+      "maxIterations": 15
+    },
+    "kickoffPrompt": "Start the \"Dependency Upgrade One-by-One\" loop.\n\nGoal: critical outdated deps are upgraded with green tests\nMax iterations: 15\nBetween iterations run: npm outdated && npm test && npm run build\nExit when: npm outdated shows no critical packages left or user stops\n\nStep 1: Pick one outdated package, upgrade it, fix breakages, commit, and stop. One package per iteration.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "dependencies",
+      "maintenance",
+      "upgrades"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 707,
+    "installs": 1594,
+    "views": 1210,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

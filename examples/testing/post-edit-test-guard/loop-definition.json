@@ -1,0 +1,81 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/post-edit-test-guard",
+  "downloadedCompatibleBundlePath": ".cursor/loops/post-edit-test-guard/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Install and run the \"Post-Edit Test Guard\" loop.\n\nGoal: after each batch of file edits, related tests must pass before continuing.\nBetween iterations run: npm test -- --findRelatedTests <edited files>\nExit when: related tests exit 0.\n\nStep 1: After edits, run related tests. If they fail, fix before making more changes.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loopba8bd9c4e16a7b1929f69642",
+    "slug": "post-edit-test-guard",
+    "title": "Post-Edit Test Guard",
+    "description": "Hook-based loop that runs related tests after file edits to catch regressions early.",
+    "category": "Testing",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "file_edit"
+    },
+    "steps": [
+      {
+        "name": "Detect edited files",
+        "prompt": "Identify which source files were edited in the last turn."
+      },
+      {
+        "name": "Run related tests",
+        "prompt": "Run the smallest relevant test subset for edited files. Fix failures before continuing.",
+        "shellCheck": "npm test -- --findRelatedTests"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm test -- --findRelatedTests",
+      "description": "Related tests pass after each edit batch"
+    },
+    "kickoffPrompt": "Install and run the \"Post-Edit Test Guard\" loop.\n\nGoal: after each batch of file edits, related tests must pass before continuing.\nBetween iterations run: npm test -- --findRelatedTests <edited files>\nExit when: related tests exit 0.\n\nStep 1: After edits, run related tests. If they fail, fix before making more changes.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".cursor/hooks.json",
+          "content": "{\n  \"version\": 1,\n  \"hooks\": {\n    \"afterFileEdit\": [\n      {\n        \"type\": \"prompt\",\n        \"prompt\": \"Post-Edit Test Guard: run related tests for the files just edited. If tests fail, fix them before continuing other work.\"\n      }\n    ]\n  }\n}"
+        },
+        {
+          "path": ".claude/settings.json",
+          "content": "{\n  \"hooks\": {\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Write|Edit\",\n        \"hooks\": [\n          {\n            \"type\": \"prompt\",\n            \"prompt\": \"Post-Edit Test Guard: run related tests for the files just edited. If tests fail, fix them before continuing other work.\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+        },
+        {
+          "path": ".cursor/loops/post-edit-test-guard/README.md",
+          "content": "# Post-Edit Test Guard\n\nUses the `afterFileEdit` hook (Cursor) and `PostToolUse` hook (Claude Code) to run related tests after edits.\n\n## Pair with\nCopy the kickoff prompt from loops! to align agent behavior with the hook.\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "hooks",
+      "testing",
+      "regression"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 999,
+    "installs": 1337,
+    "views": 1424,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/test-until-green",
+  "downloadedCompatibleBundlePath": ".cursor/loops/test-until-green/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+    "Do not weaken, delete, or skip tests to make the suite pass",
+    "Do not replace real assertions with trivial always-pass tests",
+    "Prefer fixing production code over patching tests to go green"
+  ],
+  "kickoffWithGuardrails": "Start the \"Test Until Green\" loop.\n\nGoal: all tests pass\nMax iterations: 10\nBetween iterations run: npm test\nExit when: tests exit 0\n\nStep 1: Run tests. If there are failures, fix the smallest root cause, then repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics\n- Do not weaken, delete, or skip tests to make the suite pass\n- Do not replace real assertions with trivial always-pass tests\n- Prefer fixing production code over patching tests to go green",
+  "loop": {
+    "id": "loop59bc96f872a8ee1ec194f9ef",
+    "slug": "test-until-green",
+    "title": "Test Until Green",
+    "description": "Run your test suite, fix the smallest root cause on failure, and repeat until every test passes.",
+    "category": "Testing",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Run tests",
+        "prompt": "Run the project test command and capture failures.",
+        "shellCheck": "npm test"
+      },
+      {
+        "name": "Fix failures",
+        "prompt": "Fix the smallest root cause for the current failing tests. Prefer minimal diffs."
+      },
+      {
+        "name": "Re-run tests",
+        "prompt": "Run tests again and verify progress toward zero failures.",
+        "shellCheck": "npm test"
+      }
+    ],
+    "exitCondition": {
+      "type": "tests_pass",
+      "command": "npm test",
+      "description": "All tests pass (exit code 0)",
+      "maxIterations": 10
+    },
+    "kickoffPrompt": "Start the \"Test Until Green\" loop.\n\nGoal: all tests pass\nMax iterations: 10\nBetween iterations run: npm test\nExit when: tests exit 0\n\nStep 1: Run tests. If there are failures, fix the smallest root cause, then repeat.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": [
+        {
+          "path": ".cursor/loops/test-until-green/README.md",
+          "content": "# Test Until Green\n\nRun tests after agent work until the suite is green.\n\n## Exit condition\n- `npm test` exits 0\n\n## Max iterations\n10\n"
+        }
+      ]
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "testing",
+      "tdd",
+      "ci"
+    ],
+    "guardrails": [
+      "Do not modify the check command or exit criteria to force success",
+      "Do not skip, disable, or bypass checks to pass the exit condition",
+      "If stuck after several iterations, stop and report blockers instead of gaming metrics",
+      "Do not weaken, delete, or skip tests to make the suite pass",
+      "Do not replace real assertions with trivial always-pass tests",
+      "Prefer fixing production code over patching tests to go green"
+    ],
+    "examples": [
+      {
+        "title": "Next.js app test suite",
+        "summary": "Fixed 3 failing Jest suites in 6 iterations. Root causes were async timing, missing mocks, and stale snapshots — no tests skipped."
+      }
+    ],
+    "copies": 809,
+    "installs": 1288,
+    "views": 1756,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

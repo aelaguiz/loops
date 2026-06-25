@@ -1,0 +1,70 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/pr-watch-loop",
+  "downloadedCompatibleBundlePath": ".cursor/loops/pr-watch-loop/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "/loop 15m Start the \"PR Watch Loop\".\n\nGoal: keep codex-watch PRs healthy and unblocked.\nBetween iterations run: gh pr list --label codex-watch --json number,title,state,statusCheckRollup\nExit when: status report is delivered for every watched PR.\n\nStep 1: List codex-watch PRs, check CI and reviews, and report or fix trivial blockers.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopb13b4a6d0b97bd725f57453a",
+    "slug": "pr-watch-loop",
+    "title": "PR Watch Loop",
+    "description": "Poll open PRs labeled codex-watch every 15 minutes, review activity, and flag regressions or stale threads.",
+    "category": "CI",
+    "triggerType": "interval",
+    "triggerConfig": {
+      "interval": "15m"
+    },
+    "steps": [
+      {
+        "name": "List watched PRs",
+        "prompt": "List open PRs with the codex-watch label. Summarize CI status, review state, and last activity.",
+        "shellCheck": "gh pr list --label codex-watch --json number,title,state,statusCheckRollup"
+      },
+      {
+        "name": "Check CI and reviews",
+        "prompt": "For each watched PR, check failing checks, unresolved review comments, and merge conflicts."
+      },
+      {
+        "name": "Report or act",
+        "prompt": "Post a brief status update. Fix trivial CI failures or ping the author for blockers."
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "Watch report delivered for all codex-watch PRs"
+    },
+    "kickoffPrompt": "/loop 15m Start the \"PR Watch Loop\".\n\nGoal: keep codex-watch PRs healthy and unblocked.\nBetween iterations run: gh pr list --label codex-watch --json number,title,state,statusCheckRollup\nExit when: status report is delivered for every watched PR.\n\nStep 1: List codex-watch PRs, check CI and reviews, and report or fix trivial blockers.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "codex",
+      "cursor"
+    ],
+    "bestForAgents": [
+      "codex",
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "ci",
+      "pr",
+      "watch",
+      "codex"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 716,
+    "installs": 1445,
+    "views": 1670,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

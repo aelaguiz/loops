@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Pre-Commit Guard: if this is a git commit, run npm test first. Block the commit if tests fail."
+          }
+        ]
+      }
+    ]
+  }
+}

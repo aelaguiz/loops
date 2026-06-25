@@ -1,0 +1,69 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/security-audit-weekly",
+  "downloadedCompatibleBundlePath": ".cursor/loops/security-audit-weekly/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "/loop 7d Start the \"Security Audit Weekly\" loop.\n\nGoal: deliver a weekly npm audit summary with a remediation plan.\nBetween iterations run: npm audit --json\nExit when: summary is posted with prioritized fixes.\n\nStep 1: Run npm audit, triage by severity, and propose safe remediation steps.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop5069a8bbbb9837f1e0467f24",
+    "slug": "security-audit-weekly",
+    "title": "Security Audit Weekly",
+    "description": "Weekly npm audit scan, triage vulnerabilities by severity, and propose or apply safe patches.",
+    "category": "Maintenance",
+    "triggerType": "interval",
+    "triggerConfig": {
+      "interval": "7d"
+    },
+    "steps": [
+      {
+        "name": "Run npm audit",
+        "prompt": "Run npm audit and capture critical, high, and moderate findings.",
+        "shellCheck": "npm audit --json"
+      },
+      {
+        "name": "Triage findings",
+        "prompt": "Group vulnerabilities by severity and exploitability. Flag dev-only vs production exposure."
+      },
+      {
+        "name": "Propose fixes",
+        "prompt": "Recommend npm audit fix, targeted overrides, or dependency bumps. Note breaking changes."
+      }
+    ],
+    "exitCondition": {
+      "type": "manual",
+      "description": "Weekly security audit summary delivered with remediation plan"
+    },
+    "kickoffPrompt": "/loop 7d Start the \"Security Audit Weekly\" loop.\n\nGoal: deliver a weekly npm audit summary with a remediation plan.\nBetween iterations run: npm audit --json\nExit when: summary is posted with prioritized fixes.\n\nStep 1: Run npm audit, triage by severity, and propose safe remediation steps.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "claude-code"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "security",
+      "npm",
+      "audit",
+      "maintenance"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 455,
+    "installs": 1820,
+    "views": 1116,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

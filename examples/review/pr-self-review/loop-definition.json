@@ -1,0 +1,79 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/pr-self-review",
+  "downloadedCompatibleBundlePath": ".cursor/loops/pr-self-review/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "Start the \"PR Self-Review\" loop.\n\nGoal: three clean self-review passes on the current diff\nMax iterations: 3\nBetween iterations run: git diff main...HEAD\nExit when: three passes complete with no critical findings\n\nStep 1: Review the diff like a senior reviewer. Fix findings, then re-review.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loopec5658647369091ec479a17a",
+    "slug": "pr-self-review",
+    "title": "PR Self-Review",
+    "description": "Review your own diff like a senior reviewer, fix issues, and repeat for three passes before opening the PR.",
+    "category": "Review",
+    "triggerType": "manual",
+    "triggerConfig": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "name": "Review diff",
+        "prompt": "Review the current branch diff. List bugs, edge cases, naming issues, and missing tests."
+      },
+      {
+        "name": "Address findings",
+        "prompt": "Fix the highest-severity findings from the review with minimal scope."
+      },
+      {
+        "name": "Re-review",
+        "prompt": "Review the updated diff and confirm prior findings are resolved."
+      }
+    ],
+    "exitCondition": {
+      "type": "max_iterations",
+      "description": "Three review passes completed with no critical findings",
+      "maxIterations": 3
+    },
+    "kickoffPrompt": "Start the \"PR Self-Review\" loop.\n\nGoal: three clean self-review passes on the current diff\nMax iterations: 3\nBetween iterations run: git diff main...HEAD\nExit when: three passes complete with no critical findings\n\nStep 1: Review the diff like a senior reviewer. Fix findings, then re-review.\n\nSelf-pace this loop. After each iteration, run the check command, read the output, and only continue if the exit condition is not met. Stop when the exit condition passes or max iterations is reached. Give a short status update each pass.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "cursor",
+      "claude-code",
+      "any"
+    ],
+    "bestForAgents": [
+      "claude-code",
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "review",
+      "pr",
+      "quality"
+    ],
+    "guardrails": [
+      "Do not modify the check command or exit criteria to force success",
+      "Do not skip, disable, or bypass checks to pass the exit condition",
+      "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+    ],
+    "examples": [
+      {
+        "title": "Feature branch self-review",
+        "summary": "Three review passes caught a race condition, missing null check, and outdated test. PR opened with zero critical findings."
+      }
+    ],
+    "copies": 914,
+    "installs": 1860,
+    "views": 2104,
+    "featured": false,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}

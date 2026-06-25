@@ -1,0 +1,72 @@
+{
+  "sourceUrl": "https://loops.elorm.xyz/loops/deploy-verification-loop",
+  "downloadedCompatibleBundlePath": ".cursor/loops/deploy-verification-loop/",
+  "effectiveGuardrails": [
+    "Do not modify the check command or exit criteria to force success",
+    "Do not skip, disable, or bypass checks to pass the exit condition",
+    "If stuck after several iterations, stop and report blockers instead of gaming metrics"
+  ],
+  "kickoffWithGuardrails": "/loop 15m Start the \"Deploy Verification Loop\".\n\nGoal: all post-deploy health and smoke endpoints return success.\nMax iterations: 8.\nBetween iterations run: curl -fsS <your-health-url>\nExit when: every configured endpoint succeeds.\n\nStep 1: Hit health/smoke URLs. If any fail, inspect deploy logs and fix or escalate.\n\nGuardrails (do not skip):\n- Do not modify the check command or exit criteria to force success\n- Do not skip, disable, or bypass checks to pass the exit condition\n- If stuck after several iterations, stop and report blockers instead of gaming metrics",
+  "loop": {
+    "id": "loop07db34538c27d590a6035f2a",
+    "slug": "deploy-verification-loop",
+    "title": "Deploy Verification Loop",
+    "description": "On an interval, hit health and smoke endpoints after a deploy until all checks return healthy responses.",
+    "category": "DevOps",
+    "triggerType": "interval",
+    "triggerConfig": {
+      "interval": "15m"
+    },
+    "steps": [
+      {
+        "name": "Check health endpoints",
+        "prompt": "Curl configured health/smoke URLs. Record status codes and response bodies.",
+        "shellCheck": "curl -fsS https://your-app.example/health"
+      },
+      {
+        "name": "Investigate failures",
+        "prompt": "If any endpoint fails, check recent deploy logs, env vars, and migrations. Apply the smallest fix."
+      },
+      {
+        "name": "Re-verify",
+        "prompt": "Re-run health checks after fixes or rollback decision."
+      }
+    ],
+    "exitCondition": {
+      "type": "ci_green",
+      "command": "curl -fsS https://your-app.example/health",
+      "description": "All configured health endpoints return success",
+      "maxIterations": 8
+    },
+    "kickoffPrompt": "/loop 15m Start the \"Deploy Verification Loop\".\n\nGoal: all post-deploy health and smoke endpoints return success.\nMax iterations: 8.\nBetween iterations run: curl -fsS <your-health-url>\nExit when: every configured endpoint succeeds.\n\nStep 1: Hit health/smoke URLs. If any fail, inspect deploy logs and fix or escalate.",
+    "installBundle": {
+      "files": []
+    },
+    "compatibleAgents": [
+      "codex",
+      "cursor",
+      "claude-code"
+    ],
+    "bestForAgents": [
+      "codex",
+      "cursor"
+    ],
+    "author": "loops!",
+    "authorSlug": "loops",
+    "authorOfficial": true,
+    "source": "curated",
+    "tags": [
+      "deploy",
+      "devops",
+      "smoke-test"
+    ],
+    "guardrails": [],
+    "examples": [],
+    "copies": 919,
+    "installs": 1906,
+    "views": 1283,
+    "featured": true,
+    "isPublished": true,
+    "createdAt": "Jun 14, 2026"
+  }
+}
