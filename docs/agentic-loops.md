@@ -25,6 +25,10 @@ The local loop examples follow that model. Each loop definition usually includes
 a trigger, ordered steps, optional shell checks, an exit condition, a maximum
 iteration count, guardrails, compatible agents, and a kickoff prompt.
 
+For interactive creation, audit, or feedback-based refinement of loop
+definitions, use the local
+[loop-authoring skill](../skills/loop-authoring/SKILL.md).
+
 ## What A Loop Is
 
 A loop is a workflow that lets an agent keep working after the first response.
